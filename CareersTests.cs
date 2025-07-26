@@ -15,7 +15,9 @@ namespace _Task__Selenium_WebDriver
             ToggleRemoteOption();
             SubmitSearch();
             OpenLastSearchResult();
-            AssertLanguageIsPresent(language);
+
+            bool isPresent = driver.FindElements(By.XPath($"//*[contains(text(), '{language}')]")).Count > 0;
+            Assert.That(isPresent, Is.True, $"Expected programming language '{language}' is not found on the page.");
         }
 
         private void NavigateToCareers()
@@ -55,12 +57,6 @@ namespace _Task__Selenium_WebDriver
             wait.Until(d => d.FindElements(By.XPath(lastResultXPath)).Count > 0);
             var link = driver.FindElement(By.XPath(lastResultXPath));
             link.Click();
-        }
-
-        private void AssertLanguageIsPresent(string language)
-        {
-            bool isPresent = driver.FindElements(By.XPath($"//*[contains(text(), '{language}')]")).Count > 0;
-            Assert.That(isPresent, Is.True, $"Expected programming language '{language}' is not found on the page.");
         }
     }
 }

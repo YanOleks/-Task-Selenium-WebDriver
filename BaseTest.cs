@@ -18,6 +18,7 @@ namespace _Task__Selenium_WebDriver
         public void SetUp()
         {
             driver = new ChromeDriver();
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(0);
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl("https://www.epam.com/");
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
